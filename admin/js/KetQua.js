@@ -36,11 +36,11 @@ function showResult() {
       results = data.result;
       console.log(results);
       results.dsDeThiDaLam.sort((a, b) => new Date(a.ngaythi) - new Date(b.ngaythi));
-      resultsDetail = data.result.dsDeThiDaLam.flatMap(exam =>
-        exam.dsKetQuaDaNop.flatMap(submission =>
-          submission.dsChiTietKetQua
-        )
-      );
+      // resultsDetail = data.result.dsDeThiDaLam.flatMap(exam =>
+      //   exam.dsKetQuaDaNop.flatMap(submission =>
+      //     submission.dsChiTietKetQua
+      //   )
+      // );
 
       var resultBody = document.getElementById("resultBody");
       var stt = 0;
@@ -57,7 +57,7 @@ function showResult() {
             <td>${formatDateTime(submission.ngaythi)}</td>
             <td>${submission.diem}</td>
             <td>
-              <button class="chitiet" onclick="viewDetail(${index}, ${submissionIndex})">Xem chi tiết</button>
+              <button class="chitiet" onclick="viewDetail(${submission.ketQuaId})">Xem chi tiết</button>
             </td>
           `;
           resultBody.appendChild(row);
@@ -94,13 +94,81 @@ function shuffleArray(array) {
   return array;
 }
 
-function viewDetail(examIndex, submissionIndex) {
+// function viewDetail(examIndex, submissionIndex) {
+//   var questionDetail = document.getElementById('questionDetail');
+//   questionDetail.innerHTML = '';
+
+//   var details = results.dsDeThiDaLam[examIndex].dsKetQuaDaNop[submissionIndex].dsChiTietKetQua;
+
+//   // Kiểm tra xem details có dữ liệu không
+//   if (!details || details.length === 0) {
+//     console.error("Không có dữ liệu câu hỏi.");
+//     return;
+//   }
+
+//   // Xáo trộn câu hỏi
+//   shuffleArray(details);
+//   console.log(details);
+//   // Lặp qua mỗi câu hỏi và hiển thị chi tiết
+//   details.forEach(function (detail, index) {
+//     var isCorrect = detail.cauTraLoi === detail.cauHoi.dapAn;
+//     var cauTraLoiBackColor = isCorrect ? 'rgba(144, 238, 144, 0.3)' : 'rgba(240, 128, 128, 0.3)';
+//     var cauTraLoiColor = isCorrect ? 'green' : 'red';
+
+//     // Xây dựng nội dung câu hỏi với màu nền tương ứng
+//     var questionContent = '<div class="questionContent" style="background-color:' + cauTraLoiBackColor + ';">';
+//     questionContent += '<b>Câu hỏi ' + (index + 1) + ': </b>' + detail.cauHoi.deBai + '<br>';
+//     questionContent += 'A. ' + detail.cauHoi.a + '<br>';
+//     questionContent += 'B. ' + detail.cauHoi.b + '<br>';
+//     questionContent += 'C. ' + detail.cauHoi.c + '<br>';
+//     questionContent += 'D. ' + detail.cauHoi.d + '<br>';
+
+//     questionContent += '<span style="color:' + cauTraLoiColor + '"><b>Câu trả lời: ' + detail.cauTraLoi.toUpperCase() + '</b></span><br>';
+//     questionContent += '<span style="color: green">Đáp án đúng: ' + detail.cauHoi.dapAn.toUpperCase() + '</span><br>';
+//     questionContent += '</div><hr>';
+
+//     // Thêm thông tin câu hỏi và đáp án vào modal
+//     questionDetail.innerHTML += questionContent;
+//   });
+
+
+//   // Hiển thị modal
+//   var modal = document.getElementById('detailModal');
+//   modal.style.display = 'block';
+// }
+
+
+
+function viewDetail(submissionIndex) {
+
   var questionDetail = document.getElementById('questionDetail');
   questionDetail.innerHTML = '';
+  var token = sessionStorage.getItem('token');
 
-  var details = results.dsDeThiDaLam[examIndex].dsKetQuaDaNop[submissionIndex].dsChiTietKetQua;
-
-  // Kiểm tra xem details có dữ liệu không
+  var details = [];
+  fetch(`https://server-quizz.onrender.com/quiz/admin/chiTietKQ?ketQuaId=${submissionIndex}`, {
+    headers: {
+      'Authorization': 'Bearer ' + token
+    }
+  })
+    .then(response => {
+      if (response.status === 404) { // Kiểm tra nếu không tìm thấy userId
+        return response.json(); // Trả về một Promise chứa dữ liệu JSON từ phản hồi
+      } else if (!response.ok) {
+        throw new Error('Network response was not ok');
+      } else {
+        return response.json(); // Trả về dữ liệu JSON từ phản hồi nếu mọi thứ diễn ra đúng
+      }
+    })
+    .then(data => {
+      if (data.code === 1012) { // Kiểm tra nếu không tìm thấy userId
+        alert("Người dùng không tồn tại.");
+        resultTable.style.display = "none"; // Ẩn bảng kết quả
+        exportBtn.style.display = "none"; // Ẩn nút xuất
+        return; // Dừng hàm showResult nếu không có dữ liệu để hiển thị
+      }
+      details = data.result;
+      // Kiểm tra xem details có dữ liệu không
   if (!details || details.length === 0) {
     console.error("Không có dữ liệu câu hỏi.");
     return;
@@ -135,10 +203,18 @@ function viewDetail(examIndex, submissionIndex) {
   // Hiển thị modal
   var modal = document.getElementById('detailModal');
   modal.style.display = 'block';
+
+    })
+    .catch(error => {
+      console.error('There has been a problem with your fetch operation:', error);
+    });
+
+  
 }
 
 
 // Lấy tất cả các nút "Xem chi tiết" trong bảng
+
 var detailButtons = document.querySelectorAll('.chitiet');
 
 // Lặp qua từng nút và gán sự kiện click
