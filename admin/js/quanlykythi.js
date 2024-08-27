@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var token = sessionStorage.getItem('token');
 
     // Thực hiện yêu cầu fetch đến API
-    fetch(`http://localhost:8088/quiz/admin/getAllKyThi`, {
+    fetch(`https://server-quizz.onrender.com/quiz/admin/getAllKyThi`, {
         headers: {
             'Authorization': 'Bearer ' + token // Gửi token dưới dạng Bearer Token
         }
@@ -78,7 +78,7 @@ function addKyThi() {
     };
 
     // Thực hiện yêu cầu POST đến API để tạo mới kỳ thi
-    fetch(`http://localhost:8088/quiz/admin/creatKyThi`, requestOptions)
+    fetch(`https://server-quizz.onrender.com/quiz/admin/creatKyThi`, requestOptions)
         .then(response => {
             // Kiểm tra xem yêu cầu có thành công không
             if (!response.ok) {
@@ -112,7 +112,7 @@ function deleteRow(kyThiId) {
         };
 
         // Thực hiện yêu cầu DELETE đến API để xóa kỳ thi
-        fetch(`http://localhost:8088/quiz/admin/deleteKyThi/${kyThiId}`, requestOptions)
+        fetch(`https://server-quizz.onrender.com/quiz/admin/deleteKyThi/${kyThiId}`, requestOptions)
             .then(response => {
                 // Kiểm tra xem yêu cầu có thành công không
                 if (!response.ok) {
@@ -186,7 +186,7 @@ function saveChanges(id) {
     };
 
     // Thực hiện yêu cầu PUT đến API để cập nhật thông tin kỳ thi
-    fetch(`http://localhost:8088/quiz/admin/updateKyThi/${id}`, requestOptions)
+    fetch(`https://server-quizz.onrender.com/quiz/admin/updateKyThi/${id}`, requestOptions)
         .then(response => {
             // Kiểm tra xem yêu cầu có thành công không
             if (!response.ok) {

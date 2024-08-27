@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     var token = sessionStorage.getItem('token');
 
-    fetch(`http://localhost:8088/quiz/admin/thongke`, {
+    fetch(`https://server-quizz.onrender.com/quiz/admin/thongke`, {
         headers: {
             'Authorization': 'Bearer ' + token // Gửi token dưới dạng Bearer Token
         }
@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
 
-    fetch('http://localhost:8088/quiz/admin/getAllMonThi', {
+    fetch('https://server-quizz.onrender.com/quiz/admin/getAllMonThi', {
         headers: {
             'Authorization': 'Bearer ' + token // Gửi token dưới dạng Bearer Token
         }
@@ -96,7 +96,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-    fetch('http://localhost:8088/quiz/admin/getAllKyThi', {
+    fetch('https://server-quizz.onrender.com/quiz/admin/getAllKyThi', {
         headers: {
             'Authorization': 'Bearer ' + token // Gửi token dưới dạng Bearer Token
         }

@@ -39,7 +39,7 @@ window.onload = function () {
   var token = sessionStorage.getItem('token');
 
   // Thực hiện yêu cầu fetch đến API
-  fetch(`http://localhost:8088/quiz/users/getListCauHoiInDeThi?deThiId=${examId}`, {
+  fetch(`https://server-quizz.onrender.com/quiz/users/getListCauHoiInDeThi?deThiId=${examId}`, {
     headers: {
       'Authorization': 'Bearer ' + token
     }
@@ -195,7 +195,7 @@ function submitExam() {
       body: JSON.stringify(body)
     };
 
-    fetch(`http://localhost:8088/quiz/users/ketqua?deThiId=${examId}`, requestOptions)
+    fetch(`https://server-quizz.onrender.com/quiz/users/ketqua?deThiId=${examId}`, requestOptions)
       .then(response => {
         if (!response.ok) {
           throw new Error('Network response was not ok');

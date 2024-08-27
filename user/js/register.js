@@ -35,7 +35,7 @@ function validateRegister() {
             body: JSON.stringify(body)
         };
 
-        fetch(`http://localhost:8088/quiz/users/creatUser`, requestOptions)
+        fetch(`https://server-quizz.onrender.com/quiz/users/creatUser`, requestOptions)
             .then(response => {
                 if (response.status === 400) {
                     throw new Error('Tên đăng nhập đã được sử dụng. Vui lòng đổi tên khác!');

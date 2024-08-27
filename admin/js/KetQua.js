@@ -11,7 +11,7 @@ function showResult() {
   var token = sessionStorage.getItem('token');
 
   // Thực hiện yêu cầu fetch đến API
-  fetch(`http://localhost:8088/quiz/admin/ketquauser?userId=${userId}`, {
+  fetch(`https://server-quizz.onrender.com/quiz/admin/ketquauser?userId=${userId}`, {
     headers: {
       'Authorization': 'Bearer ' + token
     }

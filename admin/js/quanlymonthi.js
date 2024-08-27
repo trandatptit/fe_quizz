@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var token = sessionStorage.getItem('token');
 
     // Thực hiện yêu cầu fetch đến API
-    fetch('http://localhost:8088/quiz/admin/getAllMonThi', {
+    fetch('https://server-quizz.onrender.com/quiz/admin/getAllMonThi', {
         headers: {
             'Authorization': 'Bearer ' + token // Gửi token dưới dạng Bearer Token
         }
@@ -76,7 +76,7 @@ function addMonThi() {
     };
 
     // Thực hiện yêu cầu POST đến API để tạo mới môn thi
-    fetch('http://localhost:8088/quiz/admin/creatMonThi', requestOptions)
+    fetch('https://server-quizz.onrender.com/quiz/admin/creatMonThi', requestOptions)
         .then(response => {
             // Kiểm tra xem yêu cầu có thành công không
             if (!response.ok) {
@@ -110,7 +110,7 @@ function deleteRow(monThiId) {
         };
 
         // Thực hiện yêu cầu DELETE đến API để xóa môn thi
-        fetch(`http://localhost:8088/quiz/admin/deleteMonThi/${monThiId}`, requestOptions)
+        fetch(`https://server-quizz.onrender.com/quiz/admin/deleteMonThi/${monThiId}`, requestOptions)
             .then(response => {
                 // Kiểm tra xem yêu cầu có thành công không
                 if (!response.ok) {
@@ -180,7 +180,7 @@ function saveChanges(id) {
     };
 
 
-    fetch(`http://localhost:8088/quiz/admin/updateMonThi/${id}`, requestOptions)
+    fetch(`https://server-quizz.onrender.com/quiz/admin/updateMonThi/${id}`, requestOptions)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Không thể cập nhật môn thi. Vui lòng thử lại!');

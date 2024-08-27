@@ -15,7 +15,7 @@ var dethiArray = [];
 
 var token = sessionStorage.getItem('token');
 
-fetch(`http://localhost:8088/quiz/users/getAllDeThi`, {
+fetch(`https://server-quizz.onrender.com/quiz/users/getAllDeThi`, {
   headers: {
     'Authorization': 'Bearer ' + token // Gửi token dưới dạng Bearer Token
   }
@@ -56,7 +56,7 @@ fetch(`http://localhost:8088/quiz/users/getAllDeThi`, {
   });
 
 
-fetch('http://localhost:8088/quiz/admin/getAllMonThi', {
+fetch('https://server-quizz.onrender.com/quiz/admin/getAllMonThi', {
   headers: {
     'Authorization': 'Bearer ' + token // Gửi token dưới dạng Bearer Token
   }
@@ -92,7 +92,7 @@ fetch('http://localhost:8088/quiz/admin/getAllMonThi', {
 
 
 
-fetch('http://localhost:8088/quiz/admin/getAllKyThi', {
+fetch('https://server-quizz.onrender.com/quiz/admin/getAllKyThi', {
   headers: {
     'Authorization': 'Bearer ' + token // Gửi token dưới dạng Bearer Token
   }

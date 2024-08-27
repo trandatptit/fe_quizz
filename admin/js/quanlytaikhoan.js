@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var token = sessionStorage.getItem('token');
 
     // Thực hiện yêu cầu fetch đến API
-    fetch('http://localhost:8088/quiz/users', {
+    fetch('https://server-quizz.onrender.com/quiz/users', {
         headers: {
             'Authorization': 'Bearer ' + token // Gửi token dưới dạng Bearer Token
         }
@@ -116,7 +116,7 @@ function saveChanges(id) {
     };
 
     // Thực hiện yêu cầu PUT đến API để cập nhật thông tin kỳ thi
-    fetch(`http://localhost:8088/quiz/users/update/${id}`, requestOptions)
+    fetch(`https://server-quizz.onrender.com/quiz/users/update/${id}`, requestOptions)
         .then(response => {
             // Kiểm tra xem yêu cầu có thành công không
             if (!response.ok) {
@@ -155,7 +155,7 @@ function deleteRow(userid) {
         };
 
         // Thực hiện yêu cầu DELETE đến API để xóa kỳ thi
-        fetch(`http://localhost:8088/quiz/users/delete/${userid}`, requestOptions)
+        fetch(`https://server-quizz.onrender.com/quiz/users/delete/${userid}`, requestOptions)
             .then(response => {
                 // Kiểm tra xem yêu cầu có thành công không
                 if (!response.ok) {
@@ -214,7 +214,7 @@ document.getElementById("userForm").addEventListener("submit", function (event) 
         };
 
         // Gửi request POST đến API
-        fetch(`http://localhost:8088/quiz/users/creatUser`, requestOptions)
+        fetch(`https://server-quizz.onrender.com/quiz/users/creatUser`, requestOptions)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');

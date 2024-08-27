@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     var token = sessionStorage.getItem('token');
 
-    fetch('http://localhost:8088/quiz/admin/getAllDeThi', {
+    fetch('https://server-quizz.onrender.com/quiz/admin/getAllDeThi', {
         headers: {
             'Authorization': 'Bearer ' + token // Gửi token dưới dạng Bearer Token
         }
@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-    fetch('http://localhost:8088/quiz/admin/getAllMonThi', {
+    fetch('https://server-quizz.onrender.com/quiz/admin/getAllMonThi', {
         headers: {
             'Authorization': 'Bearer ' + token // Gửi token dưới dạng Bearer Token
         }
@@ -106,7 +106,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-    fetch('http://localhost:8088/quiz/admin/getAllKyThi', {
+    fetch('https://server-quizz.onrender.com/quiz/admin/getAllKyThi', {
         headers: {
             'Authorization': 'Bearer ' + token // Gửi token dưới dạng Bearer Token
         }
@@ -303,7 +303,7 @@ document.getElementById("deThiForm").addEventListener("submit", function (event)
     };
 
     // Gửi request POST đến API
-    fetch(`http://localhost:8088/quiz/admin/creatDeThi?kyThiId=${kyThiId}&monThiId=${monThiId}`, requestOptions)
+    fetch(`https://server-quizz.onrender.com/quiz/admin/creatDeThi?kyThiId=${kyThiId}&monThiId=${monThiId}`, requestOptions)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -386,7 +386,7 @@ document.getElementById("addCauHoiForm").addEventListener("submit", function (ev
         body: JSON.stringify(body)
     };
 
-    fetch(`http://localhost:8088/quiz/admin/${deThiId}/creatCauHoi`, requestOptions)
+    fetch(`https://server-quizz.onrender.com/quiz/admin/${deThiId}/creatCauHoi`, requestOptions)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -424,7 +424,7 @@ function deleteRow(deThiId) {
         };
 
         // Thực hiện yêu cầu DELETE đến API để xóa đề thi
-        fetch(`http://localhost:8088/quiz/admin/deleteDeThi/${deThiId}`, requestOptions)
+        fetch(`https://server-quizz.onrender.com/quiz/admin/deleteDeThi/${deThiId}`, requestOptions)
             .then(response => {
                 // Kiểm tra xem yêu cầu có thành công không
                 if (!response.ok) {
@@ -459,7 +459,7 @@ function getCauHois(deThiId) {
         }
     };
 
-    fetch(`http://localhost:8088/quiz/users/getListCauHoiInDeThi?deThiId=${deThiId}`, requestOptions)
+    fetch(`https://server-quizz.onrender.com/quiz/users/getListCauHoiInDeThi?deThiId=${deThiId}`, requestOptions)
         .then(response => {
             if (response.status === 404) {
                 return response.json();
@@ -595,7 +595,7 @@ function saveChanges(id) {
         },
         body: JSON.stringify(body)
     };
-    fetch(`http://localhost:8088/quiz/admin/updateDeThi/${id}`, requestOptions)
+    fetch(`https://server-quizz.onrender.com/quiz/admin/updateDeThi/${id}`, requestOptions)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Không thể cập nhật đề thi. Vui lòng thử lại!');
@@ -640,7 +640,7 @@ function saveChangeQuestion(button) {
         body: JSON.stringify(body)
     };
 
-    fetch(`http://localhost:8088/quiz/admin/updateCauHoi/${cauHoiId}`, requestOptions)
+    fetch(`https://server-quizz.onrender.com/quiz/admin/updateCauHoi/${cauHoiId}`, requestOptions)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Không thể cập nhật kỳ thi. Vui lòng thử lại!');
