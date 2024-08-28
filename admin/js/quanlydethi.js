@@ -602,8 +602,14 @@ function saveChanges(id) {
             console.log('Thông tin đề thi đã được cập nhật.');
 
         })
+        .then(data => {
+            console.log('Thông tin đề thi đã được cập nhật:', data);
+            alert('Sửa Đề thi thành công!');
+            window.location.reload(); // Làm mới trang sau khi cập nhật thành công
+        })
         .catch(error => {
-            alert('Sửa Đề thi thành công!')
+            console.error('Xảy ra lỗi:', error);
+            alert(error.message); // Hiển thị thông báo lỗi cho người dùng
         });
 }
 
