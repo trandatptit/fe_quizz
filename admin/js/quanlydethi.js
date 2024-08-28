@@ -16,57 +16,115 @@ document.addEventListener("DOMContentLoaded", function () {
 
     var token = sessionStorage.getItem('token');
 
-    fetch('https://server-quizz.onrender.com/quiz/admin/getAllDeThi', {
-        headers: {
-            'Authorization': 'Bearer ' + token // Gửi token dưới dạng Bearer Token
-        }
-    })
-        .then(response => {
-            // Kiểm tra xem yêu cầu có thành công không
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
+    // fetch('https://server-quizz.onrender.com/quiz/admin/getAllDeThi', {
+    //     headers: {
+    //         'Authorization': 'Bearer ' + token // Gửi token dưới dạng Bearer Token
+    //     }
+    // })
+    //     .then(response => {
+    //         // Kiểm tra xem yêu cầu có thành công không
+    //         if (!response.ok) {
+    //             throw new Error('Network response was not ok');
+    //         }
+    //         // Nếu thành công, chuyển đổi phản hồi sang dạng JSON
+    //         return response.json();
+    //     })
+    //     .then(data => {
+    //         // Lưu danh sách kỳ thi vào mảng
+    //         deThiArray = data.result;
+    //         // Hiển thị danh sách kỳ thi (hoặc thực hiện các hành động khác tùy ý)
+    //         console.log('Danh sách kỳ thi:', deThiArray);
+    //         // Hiển thị dữ liệu mẫu trong bảng HTML
+    //         var statsBody = document.getElementById("statsBody");
+    //         deThiArray.forEach(function (data, index) {
+    //             var row = document.createElement("tr");
+    //             row.innerHTML = `
+    //         <td>${index + 1}</td>
+    //         <td>${data.ten}</td>
+    //         <td>${data.tenMonThi}</td>
+    //         <td>${data.tenKyThi}</td>
+    //         <td style="color: ${data.trangThai ? '#21bb3b' : 'red'};"><b>
+    //             ${data.trangThai ? 'Mở' : 'Đóng'}</b>
+    //         </td>
+    //         <td>
+    //             <button class="btn question" onclick="getCauHois('${data.id}')" title="Chi tiết"><b>${data.soCauHoi}</b></button>
+    //         </td>
+    //         <td>${data.thoiGianLamBai}</td>
+    //         <td>${data.lichThi}</td>
+    //         <td>
+    //             <button class="btn " onclick="openModal(${data.id})" title="chỉnh sửa"><i class="fa-solid fa-pen-to-square"></i></button>
+    //             <button class="btn " onclick="deleteRow(${data.id})" title="xóa"><i class="fa-solid fa-trash"></i></button>
+    //         </td>
+    //     `;
+    //             statsBody.appendChild(row);
+
+    //         });
+    //         addDeThiToDatalist();
+    //     })
+    //     .catch(error => {
+    //         // Xử lý lỗi nếu có
+    //         console.error('There has been a problem with your fetch operation:', error);
+    //     });
+
+
+    function reloadDeThiList() {
+        var token = sessionStorage.getItem('token'); // Lấy token từ sessionStorage
+    
+        fetch('https://server-quizz.onrender.com/quiz/admin/getAllDeThi', {
+            headers: {
+                'Authorization': 'Bearer ' + token // Gửi token dưới dạng Bearer Token
             }
-            // Nếu thành công, chuyển đổi phản hồi sang dạng JSON
-            return response.json();
         })
-        .then(data => {
-            // Lưu danh sách kỳ thi vào mảng
-            deThiArray = data.result;
-            // Hiển thị danh sách kỳ thi (hoặc thực hiện các hành động khác tùy ý)
-            console.log('Danh sách kỳ thi:', deThiArray);
-            // Hiển thị dữ liệu mẫu trong bảng HTML
-            var statsBody = document.getElementById("statsBody");
-            deThiArray.forEach(function (data, index) {
-                var row = document.createElement("tr");
-                row.innerHTML = `
-            <td>${index + 1}</td>
-            <td>${data.ten}</td>
-            <td>${data.tenMonThi}</td>
-            <td>${data.tenKyThi}</td>
-            <td style="color: ${data.trangThai ? '#21bb3b' : 'red'};"><b>
-                ${data.trangThai ? 'Mở' : 'Đóng'}</b>
-            </td>
-            <td>
-                <button class="btn question" onclick="getCauHois('${data.id}')" title="Chi tiết"><b>${data.soCauHoi}</b></button>
-            </td>
-            <td>${data.thoiGianLamBai}</td>
-            <td>${data.lichThi}</td>
-            <td>
-                <button class="btn " onclick="openModal(${data.id})" title="chỉnh sửa"><i class="fa-solid fa-pen-to-square"></i></button>
-                <button class="btn " onclick="deleteRow(${data.id})" title="xóa"><i class="fa-solid fa-trash"></i></button>
-            </td>
-        `;
-                statsBody.appendChild(row);
-
+            .then(response => {
+                // Kiểm tra xem yêu cầu có thành công không
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                // Nếu thành công, chuyển đổi phản hồi sang dạng JSON
+                return response.json();
+            })
+            .then(data => {
+                // Lưu danh sách đề thi vào mảng
+                var deThiArray = data.result;
+    
+                // Hiển thị danh sách đề thi (hoặc thực hiện các hành động khác tùy ý)
+                console.log('Danh sách đề thi:', deThiArray);
+    
+                // Xóa nội dung hiện tại của bảng trước khi thêm dữ liệu mới
+                var statsBody = document.getElementById("statsBody");
+                statsBody.innerHTML = "";
+    
+                // Hiển thị dữ liệu mới trong bảng HTML
+                deThiArray.forEach(function (data, index) {
+                    var row = document.createElement("tr");
+                    row.innerHTML = `
+                        <td>${index + 1}</td>
+                        <td>${data.ten}</td>
+                        <td>${data.tenMonThi}</td>
+                        <td>${data.tenKyThi}</td>
+                        <td style="color: ${data.trangThai ? '#21bb3b' : 'red'};"><b>
+                            ${data.trangThai ? 'Mở' : 'Đóng'}</b>
+                        </td>
+                        <td>
+                            <button class="btn question" onclick="getCauHois('${data.id}')" title="Chi tiết"><b>${data.soCauHoi}</b></button>
+                        </td>
+                        <td>${data.thoiGianLamBai}</td>
+                        <td>${data.lichThi}</td>
+                        <td>
+                            <button class="btn " onclick="openModal(${data.id})" title="chỉnh sửa"><i class="fa-solid fa-pen-to-square"></i></button>
+                            <button class="btn " onclick="deleteRow(${data.id})" title="xóa"><i class="fa-solid fa-trash"></i></button>
+                        </td>
+                    `;
+                    statsBody.appendChild(row);
+                });
+    
+                addDeThiToDatalist(); // Cập nhật datalist nếu cần
+            })
+            .catch(error => {
+                // Xử lý lỗi nếu có
+                console.error('There has been a problem with your fetch operation:', error);
             });
-            addDeThiToDatalist();
-        })
-        .catch(error => {
-            // Xử lý lỗi nếu có
-            console.error('There has been a problem with your fetch operation:', error);
-        });
-
-
+    }
 
 
 
@@ -601,11 +659,10 @@ function saveChanges(id) {
             }
             console.log('Thông tin đề thi đã được cập nhật.');
 
-        })
-        .then(data => {
+        }).then(data => {
             console.log('Thông tin đề thi đã được cập nhật:', data);
             alert('Sửa Đề thi thành công!');
-            window.location.reload(); // Làm mới trang sau khi cập nhật thành công
+            reloadDeThiList(); // Gọi hàm làm mới danh sách đề thi
         })
         .catch(error => {
             console.error('Xảy ra lỗi:', error);
