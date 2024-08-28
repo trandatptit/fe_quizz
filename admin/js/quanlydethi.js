@@ -274,7 +274,16 @@ document.getElementById("deThiForm").addEventListener("submit", function (event)
     var trangThai = trangThaiValue === '1' ? true : false;
     var thoiGianLamBai = document.getElementById("timeExam").value;
 
+    // Kiểm tra số phút nhập vào có phải là số nguyên không
+    var thoiGianLamBaiInt = parseInt(thoiGianLamBai, 10);
 
+    // Kiểm tra xem giá trị sau khi chuyển đổi có phải là một số hợp lệ không
+    if (!isNaN(thoiGianLamBaiInt) && thoiGianLamBaiInt.toString() === thoiGianLamBai.trim()) {
+        
+    } else {
+        // Số phút không hợp lệ
+        console.log("Thời gian làm bài phải nhập dạng số.");
+    }
 
     var ngayThi = document.getElementById("dateExam").value;
     var dateObject = new Date(ngayThi.replace('T', ' ').replace(/-/g, '/'));
