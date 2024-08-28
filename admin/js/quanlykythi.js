@@ -57,8 +57,11 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function addKyThi() {
+    if (event) {
+        event.preventDefault();
+    }
     // Lấy giá trị của trường nhập liệu từ form
-    var ten = document.getElementById("tenKyThi").value;
+    var ten = document.getElementById("tenKyThi").value.trim();
 
     if (ten === "") {
         alert("Vui lòng nhập tên kỳ thi.");

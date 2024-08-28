@@ -55,8 +55,11 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function addMonThi() {
+    if (event) {
+        event.preventDefault();
+    }
     // Lấy giá trị của trường nhập liệu từ form
-    var tenMon = document.getElementById("tenMon").value;
+    var tenMon = document.getElementById("tenMon").value.trim();
     if (tenMon === "") {
         alert("Vui lòng nhập tên môn thi.");
         return; // Ngừng thực hiện hàm nếu trường nhập liệu rỗng
