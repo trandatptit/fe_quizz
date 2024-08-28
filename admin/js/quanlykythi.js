@@ -60,6 +60,11 @@ function addKyThi() {
     // Lấy giá trị của trường nhập liệu từ form
     var ten = document.getElementById("tenKyThi").value;
 
+    if (ten === "") {
+        alert("Vui lòng nhập tên kỳ thi.");
+        return; // Ngừng thực hiện hàm nếu trường nhập liệu rỗng
+    }
+
     // Dữ liệu kỳ thi mới
     var body = {
         ten: ten

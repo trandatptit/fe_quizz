@@ -57,6 +57,10 @@ document.addEventListener("DOMContentLoaded", function () {
 function addMonThi() {
     // Lấy giá trị của trường nhập liệu từ form
     var tenMon = document.getElementById("tenMon").value;
+    if (tenMon === "") {
+        alert("Vui lòng nhập tên môn thi.");
+        return; // Ngừng thực hiện hàm nếu trường nhập liệu rỗng
+    }
 
     // Dữ liệu môn thi mới
     var body = {
