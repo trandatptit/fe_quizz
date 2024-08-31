@@ -170,7 +170,7 @@ function displayExams(examsToShow) {
 
     //ảnh
     const examImage = document.createElement("img");
-    examImage.src = `https://eduquiz.vn/_next/image?url=https%3A%2F%2Fimg.freepik.com%2Fpremium-vector%2Fquiz-comic-pop-art-style_175838-505.jpg%3Fw%3D600&w=1920&q=60`; // Thay 'exam.imageSrc' bằng đường dẫn đến hình ảnh của bạn
+    examImage.src = `https://img.freepik.com/premium-vector/quiz-logo-poll-questionnaire-icon-symbol_101884-1076.jpg`; // Thay 'exam.imageSrc' bằng đường dẫn đến hình ảnh của bạn
     examImage.classList.add("img-quiz");
     examImage.alt = "Ảnh kỳ thi"; // Đặt text mô tả hình ảnh của bạn
     card.appendChild(examImage); // Đính kèm phần tử hình ảnh vào thẻ card
