@@ -50,7 +50,6 @@ function validateLogin() {
         })
         .catch(error => {
             console.error('Đã xảy ra lỗi:', error);
-            alert('Đã xảy ra lỗi: ' + error.message);
         });
 
     return false; // Ngăn chặn form được submit
